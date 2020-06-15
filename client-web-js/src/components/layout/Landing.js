@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Checkout from '../payment/Checkout';
+import Drawer from './Drawer'
  
 const customStyles = {
   content : {
@@ -41,6 +42,7 @@ const Landing = ({ isAuthenticated }) => {
   return (
     <section style={{ marginTop: 100 }}>
       <h1>Socialgoodtoday</h1>
+      <Drawer/>
       <div style={{ width: 300, background: "lightgray", float: "right" }}>
         <h3>Donate now</h3>
         <div style={{ display: "flex" }}>

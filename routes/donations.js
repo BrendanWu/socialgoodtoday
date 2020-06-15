@@ -7,7 +7,7 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 const normalize = require('normalize-url');
 
-const Charity = require('../../models/Charity');
+const Donation = require('../models/Donation');
 
 // @route    POST api/users
 // @desc     Register user
@@ -16,19 +16,18 @@ router.post(
   '/',
   async (req, res) => {
    
-    const { title,description, organization,goal,amountRaised} = req.body;
+    const { user, charity, amount, donationType } = req.body;
 
     try {
 
-      charity = new Charity({
-        title,
-        description,
-        organization,
-        goal,
-        amountRaised
+      donation = new Donation({
+        user,
+        charity,
+        amount,
+        donationType
       });
 
-      await charity.save();
+      await donation.save();
 
     } catch (err) {
       console.error(err.message);
