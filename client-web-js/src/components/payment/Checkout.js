@@ -16,7 +16,7 @@ export default function Checkout() {
     const stripe = useStripe();
     const elements = useElements();
 
-    const stripePromise = loadStripe("pk_live_399jLK0UB91mQIB4eyvXV2Zr002Rw0WyEp");
+    const stripePromise = loadStripe(process.env.STRIPE_KEY);
 
     const handleSubmit = async (event) => {
         // We don't want to let default form submission happen here,

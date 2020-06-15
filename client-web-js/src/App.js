@@ -19,7 +19,7 @@ const App = () => {
     setAuthToken(localStorage.token);
     store.dispatch(loadUser());
   }, []);
-  const stripePromise = loadStripe("pk_live_399jLK0UB91mQIB4eyvXV2Zr002Rw0WyEp");
+  const stripePromise = loadStripe(process.env.STRIPE_KEY);
   return (
     <Provider store={store}>
       <Router>
