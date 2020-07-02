@@ -20,6 +20,22 @@ const CharitySchema = new mongoose.Schema({
     amountRaised: {
         type: Number,
         required: true   
+    },
+    bannerImage: {
+        type: String,
+        required: true
+    },
+    bannerVideo: {
+        type: String,
+        required: false
+    },
+    slideshowImages: {
+        type: [String],
+        required: true
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now()
     }
 });
 

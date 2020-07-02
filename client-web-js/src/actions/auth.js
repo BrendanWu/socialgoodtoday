@@ -28,8 +28,10 @@ export const loadUser = () => async dispatch => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async dispatch => {
-  const body = JSON.stringify({ name, email, password });
+export const register = (user) => async dispatch => {
+
+  const body = JSON.stringify(user);
+  console.log(body);
 
   try {
     const res = await api.post('/users', body);
@@ -58,6 +60,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await api.post('/auth', body);
+    console.log(res.data);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -66,9 +69,10 @@ export const login = (email, password) => async dispatch => {
 
     dispatch(loadUser());
   } catch (err) {
-    const errors = err.response.data.errors;
 
-    if (errors) {
+    
+    if (err) {
+      const errors = err.response.data.errors;
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     }
 

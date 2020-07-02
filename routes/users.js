@@ -14,21 +14,23 @@ const User = require('../models/User');
 // @access   Public
 router.post(
   '/',
-  [
-    check('name', 'Name is required').not().isEmpty(),
-    check('email', 'Please include a valid email').isEmail(),
-    check(
-      'password',
-      'Please enter a password with 6 or more characters'
-    ).isLength({ min: 6 })
-  ],
+  // [
+  //   check('name', 'Name is required').not().isEmpty(),
+  //   check('email', 'Please include a valid email').isEmail(),
+  //   check(
+  //     'password',
+  //     'Please enter a password with 6 or more characters'
+  //   ).isLength({ min: 6 }),
+  //   check('profilePicture', "Valid profile image").optional().isString()
+  // ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, profileImage } = req.body;
+    console.log(req.body);
 
     try {
       let user = await User.findOne({ email });
@@ -39,19 +41,10 @@ router.post(
           .json({ errors: [{ msg: 'User already exists' }] });
       }
 
-      const avatar = normalize(
-        gravatar.url(email, {
-          s: '200',
-          r: 'pg',
-          d: 'mm'
-        }),
-        { forceHttps: true }
-      );
-
       user = new User({
         name,
         email,
-        avatar,
+        avatar: profileImage,
         password
       });
 
@@ -82,5 +75,11 @@ router.post(
     }
   }
 );
+
+router.get('/', async (req, res)=>{
+  const users = await User.find()
+  res.json({success:true, users})
+
+})
 
 module.exports = router;

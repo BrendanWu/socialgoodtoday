@@ -15,8 +15,11 @@ const Charity = require('../models/Charity');
 router.post(
   '/',
   async (req, res) => {
+
+    console.log(req.body)
    
-    const { title,description, organization,goal,amountRaised} = req.body;
+    const { title,description, organization,goal,amountRaised, bannerImage,
+    bannerVideo, slideshowImages} = req.body;
 
     try {
 
@@ -25,10 +28,14 @@ router.post(
         description,
         organization,
         goal,
-        amountRaised
+        amountRaised,
+        bannerImage,
+        bannerVideo,
+        slideshowImages
       });
 
-      await charity.save();
+      const c = await charity.save();
+      res.json({success: true, charity: c})
 
     } catch (err) {
       console.error(err.message);
@@ -36,5 +43,16 @@ router.post(
     }
   }
 );
+
+router.get('/', async (req, res) => {
+  const charities = await Charity.find()
+  res.json({success:true, charities})
+})
+router.get('/:id', async (req, res) => {
+  console.log(req.params)
+  const charity = await Charity.findOne({_id: req.params.id})
+  console.log(charity)
+  res.json({success:true, charity})
+})
 
 module.exports = router;

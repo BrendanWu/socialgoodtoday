@@ -12,22 +12,14 @@ const Donation = require('../models/Donation');
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
-router.post(
+router.get(
   '/',
   async (req, res) => {
-   
-    const { user, charity, amount, donationType } = req.body;
 
     try {
 
-      donation = new Donation({
-        user,
-        charity,
-        amount,
-        donationType
-      });
-
-      await donation.save();
+      const donations = await Donation.find({})
+      res.json({success:true, donations})
 
     } catch (err) {
       console.error(err.message);
@@ -35,5 +27,29 @@ router.post(
     }
   }
 );
+
+router.get('/:email', async(req, res)=> {
+  try {
+    console.log(req.params.id);
+    const donations = await Donation.find({email: req.params.email})
+    console.log(donations);
+ 
+    res.json({success:true, donations})
+  } catch (error) {
+    res.status(500).send(JSON.stringify(error.message))
+  }
+})
+
+router.get('/getById/:id', async(req, res)=> {
+  try {
+    console.log(req.params.id);
+    const donations = await Donation.find({cid: req.params.id})
+    console.log(donations);
+ 
+    res.json({success:true, donations})
+  } catch (error) {
+    res.status(500).send(JSON.stringify(error.message))
+  }
+})
 
 module.exports = router;

@@ -2,6 +2,11 @@ import axios from 'axios';
 import store from '../store';
 import { LOGOUT, CLEAR_PROFILE } from '../actions/types';
 
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://api.socialgoodtoday.org"
+    : "http://localhost:5555";
+
 const api = axios.create({
   baseURL: 'http://localhost:5555/api',
   headers: {

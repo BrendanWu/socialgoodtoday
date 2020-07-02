@@ -8,6 +8,8 @@ import Checkout from "../payment/Checkout";
 import { connect } from "react-redux";
 import {toggleDrawer} from '../../actions/cart'
 import PropTypes from 'prop-types';
+import FlexDiv from '../../components/design-system/FlexDiv'
+import { ButtonBase } from "@material-ui/core";
 
 const useStyles = makeStyles({
   list: {
@@ -23,20 +25,24 @@ const SwipeableTemporaryDrawer = ({isOpen, toggleDrawer}) => {
 
 
   return (
-    <div>
-      <React.Fragment>
-        <Button onClick={toggleDrawer}>toggle drawer</Button>
+    <div style={{width:"100%"}}>
+
         <SwipeableDrawer
           anchor={"right"}
           open={isOpen}
           onClose={toggleDrawer}
           onOpen={toggleDrawer}
+        
         >
-          <h2>Donate now</h2>
-          <Divider />
+          <div style={{minWidth:500, maxWidth:"100%"}}>
+            <ButtonBase onClick={toggleDrawer} style={{marginRight:20, marginTop:20, float:"right"}}>Close</ButtonBase>
+       
           <Checkout />
+
+          </div>
+          
         </SwipeableDrawer>
-      </React.Fragment>
+      
     </div>
   );
 }

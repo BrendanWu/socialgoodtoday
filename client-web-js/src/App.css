@@ -1,6 +1,6 @@
 /* Global Styles */
 :root {
-  --primary-color: #766df3b2;
+  --primary-color: #1df040b2;
   --dark-color: #2a272e;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -67,7 +67,7 @@ img {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: "green";
 }
 
 .text-dark {
